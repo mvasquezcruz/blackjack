@@ -11,7 +11,6 @@
  *  works, you should see an output that tells you if 
  *  you've won or lost.  
  */ 
-
   // YOUR CODE HERE 
   // YOUR CODE HERE  This program will not compile and run yet.
   // YOUR CODE HERE 
@@ -46,6 +45,17 @@ int value(std::vector <char> hand) {
   }
   return value; 
 }
+
+bool play(std::vector <char> hand, char dealer, std::vector <char> other_cards) {
+
+  int h = value(hand); 
+
+  if (h<=16) {
+    return true; 
+  }
+  return false; 
+  
+}                                    
 
 float play_blackjack(int number_of_decks) {
   // Returns the result: player wins -> 1
@@ -143,7 +153,7 @@ float play_blackjack(int number_of_decks) {
 }
 
 int main() {
-  const int number_of_games = 1;   
+  const int number_of_games = 100;   
   const int number_of_decks = 4;
   
   for (int game=0; game<number_of_games; game++) {
