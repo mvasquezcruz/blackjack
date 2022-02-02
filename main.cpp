@@ -11,6 +11,7 @@
  *  works, you should see an output that tells you if 
  *  you've won or lost.  
  */ 
+
   // YOUR CODE HERE 
   // YOUR CODE HERE  This program will not compile and run yet.
   // YOUR CODE HERE 
@@ -47,17 +48,58 @@ int value(std::vector <char> hand) {
 }
 
 bool play(std::vector <char> hand, char dealer, std::vector <char> other_cards) {
-
-  int h = value(hand); 
-
-  if (h<=16) {
-    return true; 
-  }
-  return false; 
   
-}                                    
+  int val = value(hand); 
+  if ( hand.size() == 2) {
+     if ( val>4 && val<=8) {
+       return true;
+    }
+    else if (val==9 && dealer=='2'|| dealer=='7'||dealer=='9'||dealer=='T' || dealer== 'J'||dealer=='Q'|| dealer=='K'||dealer=='A') { 
+      return true;
+    }
+    else if (val==10 && dealer=='T'||dealer== 'J' || dealer=='Q'  || dealer=='K' ||  dealer=='A'){
+      return true; 
+    }
+    else if (val== 11 && dealer=='A'){ 
+      return true; 
+    } 
+    else if (val==12 && dealer=='2'||dealer== '3' || dealer=='7'  || dealer=='8' || dealer=='9' ||dealer=='T'|| dealer== 'J' || dealer=='Q'  || dealer=='K' ||  dealer=='A'){
+      return true;
+    }
+    else if (val==13 && dealer=='7'|| dealer=='8' ||  dealer=='9' ||dealer=='T'||dealer== 'J' || dealer=='Q'  || dealer=='K' ||  dealer=='A'){
+      return true; 
+    }
+    else if (val==14 && dealer=='7'|| dealer=='8' ||  dealer=='9' ||dealer=='T'||dealer== 'J' || dealer=='Q'  || dealer=='K' ||  dealer=='A'){
+      return true; 
+    } 
+    else if (val==15 && dealer=='7'|| dealer=='8' ||  dealer=='9' ||dealer=='T'||dealer== 'J' || dealer=='Q'  || dealer=='K' ||  dealer=='A'){
+      return true; 
+    } 
+   else if (val==16 && dealer=='7'|| dealer=='8' ||  dealer=='9' ||dealer=='T'||dealer== 'J' || dealer=='Q'  || dealer=='K' ||  dealer=='A'){
+      return true; 
+    } 
+    else if ( hand[0]=='A' && hand[1]=='2' || hand[0]=='2' && hand[1]=='A' ) {
+      return true;
+    } 
+    else if ( hand[0]=='A' && hand[1]=='3' || hand[0]=='3' && hand[1]=='A' ) {
+      return true;
+    }
+    else if ( hand[0]=='A' && hand[1]=='4' || hand[0]=='4' && hand[1]=='A' ) {
+      return true;
+  }
+    else if ( hand[0]=='A' && hand[1]=='5' || hand[0]=='5' && hand[1]=='A' ) {
+      return true;
+    }
+    else if ( hand[0]=='A' && hand[1]=='6' || hand[0]=='6' && hand[1]=='A' ) {
+      return true;
+    }
+  else {
+    return false; 
+  }
+ }
+} 
 
-float play_blackjack(int number_of_decks) {
+float play_blackjack(int number_of_decks){
   // Returns the result: player wins -> 1
   //                     player loss -> -1
   //                     draw -> 0
@@ -65,6 +107,7 @@ float play_blackjack(int number_of_decks) {
 
   // Create and combine number_of_decks decks
   std::vector <char> deck = {};  
+
   for (int i=0; i<number_of_decks; i++) {
     for (int c=2; c<10; c++) {
       deck.push_back( 48 + c);  // ASCII offset 
@@ -131,14 +174,19 @@ float play_blackjack(int number_of_decks) {
       dealer_hand.push_back( deck[0] );
       deck.erase(deck.begin()); 
     }
-    if ( value(player_hand) == value(dealer_hand) ) {
-      result = 0.0; 
-    }
-    if ( value(player_hand) > value(dealer_hand) ) {
+    if ( value(dealer_hand) > 21 ) {
       result = 1.0; 
     }
-    if ( value(player_hand) < value(dealer_hand) ) {
-      result = -1.0; 
+    else {
+      if ( value(player_hand) == value(dealer_hand) ) {
+        result = 0.0; 
+      }
+      if ( value(player_hand) > value(dealer_hand) ) {
+        result = 1.0; 
+      }
+      if ( value(player_hand) < value(dealer_hand) ) {
+        result = -1.0; 
+      }
     }
   }
   
@@ -152,12 +200,16 @@ float play_blackjack(int number_of_decks) {
   return result; 
 }
 
-int main() {
-  const int number_of_games = 100;   
+int main(){
+  const int number_of_games = 10000000;   
   const int number_of_decks = 4;
+
+  float total = 0.0;
   
   for (int game=0; game<number_of_games; game++) {
-    std::cout << play_blackjack(number_of_decks) << '\n'; 
+    float result = play_blackjack(number_of_decks); 
+    total += result; 
+    std::cout << total << '\n'; 
   }
 
   return 0; 
